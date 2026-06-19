@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Electronics & Sports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e3e6e6;
+            padding-bottom: 50px;
+        }
+        header {
+            background-color: #131921;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item span:first-child {
+            font-size: 0.75rem;
+            color: #ccc;
+        }
+
+        .nav-item span:last-child {
+            font-weight: bold;
+        }
+        .hero {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0), #e3e6e6), url('https://placehold.co/1500x600/232f3e/white?text=Electronics+%26+Sports+Deals');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            margin-bottom: -150px;
+        }
+        .main-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .product-info h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 5px;
+            color: #0F1111;
+            height: 2.8em;
+            overflow: hidden;
+        }
+
+        .rating {
+            color: #ffa41c;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .price sup {
+            font-size: 0.75rem;
+            top: -0.5em;
+        }
+
+        .add-to-cart-btn {
+            background-color: #ffd814;
+            border: 1px solid #fcd200;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            width: 100%;
+            margin-top: auto;
+        }
+        .add-to-cart-btn:hover { background-color: #f7ca00; }
+        .section-title {
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            font-weight: bold;
+            color: #333;
+        }
+        .faq-section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+        }
+
+        details {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #007185;
+            list-style: none;
+            position: relative;
+            outline: none;
+        }
+        
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        details[open] summary::after { content: '-'; }
+
+        details p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .feedback-box {
+            background-color: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            max-width: 800px;
+            margin: 0 auto; 
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feedback-form input, .feedback-form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100%;
+            resize: vertical;
+        }
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse; 
+            justify-content: flex-end;
+            font-size: 1.5rem;
+        }
+
+        .star-rating input {
+            display: none; 
+        }
+
+        .star-rating label {
+            color: #ccc; 
+            cursor: pointer;
+            padding: 0 2px;
+            transition: color 0.2s;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #ffa41c; 
+        }
+
+        .feedback-btn {
+            background-color: #ffd814; 
+            border: 1px solid #fcd200;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: fit-content;
+            font-weight: bold;
+        }
+        .feedback-btn:hover { background-color: #f7ca00; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">amazon<span style="font-size: 0.8em">.clone</span></div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button class="search-button">🔍</button>
+        </div>
+        <div class="nav-links">
+            <div class="nav-item">
+                <span>Hello, Sign in</span>
+                <span>Account & Lists</span>
+            </div>
+            <div class="nav-item">
+                <span>Returns</span>
+                <span>& Orders</span>
+            </div>
+            <div class="nav-item">
+                <span>Cart (0)</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero"></div>
+
+    <div class="main-container">
+        
+        <h2 class="section-title">Deals in Electronics & Sports</h2>
+        
+        <div class="products-grid">
+            
+            <div class="product-card">
+                <img src="https://drorthooil.com/cdn/shop/files/dr-ortho-yoga-mat-11a.jpg?v=1750661280&width=720" alt="Yoga Mat" class="product-image">
+                <div class="product-info">
+                    <h3>Non-Slip Yoga Mat with Carrying Strap</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (5,300)</div>
+                    <div class="price"><sup>₹</sup>549<sup>99</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/41h-cULoVUL.jpg" alt="Dumbbells" class="product-image">
+                <div class="product-info">
+                    <h3>Neoprene Dumbbell Hand Weights (Set of 2)</h3>
+                    <div class="rating">⭐⭐⭐⭐☆ (890)</div>
+                    <div class="price"><sup>₹</sup>999<sup>99</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1562183241-b937e95585b6?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cnVubmluZyUyMHNob2VzfGVufDB8fDB8fHww" alt="Shoes" class="product-image">
+                <div class="product-info">
+                    <h3>Men's Lightweight Running Sneakers</h3>
+                    <div class="rating">⭐⭐⭐☆☆ (210)</div>
+                    <div class="price"><sup>₹</sup>799<sup>00</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://letsgotennis.com/wp-content/uploads/2024/10/Pro-Staff-Six.One-100-V14-Tennis-Racket-2.webp" alt="Tennis" class="product-image">
+                <div class="product-info">
+                    <h3>Pro Staff Tennis Racket - Graphite</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (120)</div>
+                    <div class="price"><sup>₹</sup>899<sup>99</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/419yUjepKGL.jpg" alt="Webcam" class="product-image">
+                <div class="product-info">
+                    <h3>Ultra HD 4K Webcam with Microphone</h3>
+                    <div class="rating">⭐⭐⭐⭐☆ (1,100)</div>
+                    <div class="price"><sup>₹</sup>1499<sup>99</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZWFyYnVkc3xlbnwwfHwwfHx8MA==" alt="Earbuds" class="product-image">
+                <div class="product-info">
+                    <h3>True Wireless Earbuds with Charging Case</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (8,540)</div>
+                    <div class="price"><sup>₹</sup>999<sup>00</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://t3.ftcdn.net/jpg/09/27/46/10/360_F_927461058_pnnPKsu2PkHZlI78jI4Jmx6cMWXMa2un.jpg" alt="Mouse" class="product-image">
+                <div class="product-info">
+                    <h3>RGB Gaming Mouse 16000 DPI Programmable</h3>
+                    <div class="rating">⭐⭐⭐⭐☆ (450)</div>
+                    <div class="price"><sup>₹</sup>549<sup>99</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+             <div class="product-card">
+                <img src="https://cdn.mos.cms.futurecdn.net/3ZSmSoaXzfPgGmTKbQHWvf.webp" alt="Keyboard" class="product-image">
+                <div class="product-info">
+                    <h3>RGB Mechanical Gaming Keyboard Blue Switch</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (2,300)</div>
+                    <div class="price"><sup>₹</sup>450<sup>00</sup></div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+        </div> <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-section">
+            <details>
+                <summary>What is the return policy for electronics?</summary>
+                <p>Electronics can be returned within 30 days of receipt. They must be in new condition with original packaging.</p>
+            </details>
+            <details>
+                <summary>Do these products come with a warranty?</summary>
+                <p>Yes, all new electronics come with a minimum 1-year manufacturer warranty unless stated otherwise.</p>
+            </details>
+            <details>
+                <summary>How long does shipping take?</summary>
+                <p>Standard shipping takes 3-5 business days. Expedited shipping options are available at checkout.</p>
+            </details>
+        </div>
+
+        <h2 class="section-title" style="text-align: center;">We value your feedback</h2>
+        <div class="feedback-box">
+            <p style="margin-bottom: 15px; color: #555;">Rate your experience and let us know how we can improve.</p>
+            
+            <form class="feedback-form" onsubmit="alert('Thank you for your rating and feedback!'); return false;">
+                
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span>Rating:</span>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+
+                <input type="text" placeholder="Your Name (Optional)">
+                <input type="email" placeholder="Your Email">
+                <textarea rows="4" placeholder="Type your feedback here..."></textarea>
+                
+                <button type="submit" class="feedback-btn">Submit Feedback</button>
+            </form>
+        </div>
+
+    </div>
+<script src="amazonclone.js"></script>
+</body>
+</html>
